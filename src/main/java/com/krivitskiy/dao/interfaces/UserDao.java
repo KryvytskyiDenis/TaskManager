@@ -2,7 +2,8 @@ package com.krivitskiy.dao.interfaces;
 
 import com.krivitskiy.model.User;
 
-public interface UserRepository {
+
+public interface UserDao{
 
     void save(User user);
 

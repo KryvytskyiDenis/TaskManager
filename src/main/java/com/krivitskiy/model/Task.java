@@ -22,13 +22,17 @@ public class Task {
     @Column(name = "date_created")
     private Date DateCreated;
 
+    @ManyToOne
+    private User user;
+
     public Task() {
     }
 
-    public Task(int id, String name, String description) {
-        this.id = id;
+    public Task(String name, String description, Date dateCreated, User user) {
         this.name = name;
         this.description = description;
+        DateCreated = dateCreated;
+        this.user = user;
     }
 
     public int getId() {
@@ -61,5 +65,13 @@ public class Task {
 
     public void setDateCreated(Date dateCreated) {
         DateCreated = dateCreated;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

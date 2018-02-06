@@ -1,10 +1,6 @@
 package com.krivitskiy.model;
 
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.annotations.ManyToAny;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,12 +56,4 @@ public class Role {
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name=" + name +
-                ", users=" + users +
-                '}';
-    }
 }
