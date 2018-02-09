@@ -18,7 +18,7 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_created")
     private Date DateCreated;
 

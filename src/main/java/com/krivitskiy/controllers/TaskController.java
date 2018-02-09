@@ -48,16 +48,16 @@ public class TaskController {
     public String home(HttpServletRequest request) {
         String username = securityService.findLoggedInUsername();
         User user = userService.findByName(username);
-        request.setAttribute("username",user.getUsername());
+        request.setAttribute("username", user.getUsername());
         request.setAttribute("tasks", taskService.findAllByUserId(user.getId()));
-        request.setAttribute("mode", "MODE_TASKS");
         return "index";
     }
 
     @GetMapping("/new-task")
     public String newTask(HttpServletRequest request) {
-        request.setAttribute("mode", "MODE_NEW");
-        return "index";
+        String username = securityService.findLoggedInUsername();
+        request.setAttribute("username", username);
+        return "manageTask";
     }
 
     @PostMapping("/save-task")
@@ -72,9 +72,10 @@ public class TaskController {
 
     @GetMapping("/edit-task")
     public String editTask(@RequestParam int id, HttpServletRequest request) {
+        String username = securityService.findLoggedInUsername();
+        request.setAttribute("username", username);
         request.setAttribute("task", taskService.find(id));
-        request.setAttribute("mode", "MODE_EDIT");
-        return "index";
+        return "manageTask";
     }
 
     @GetMapping("/delete-task")
@@ -106,23 +107,23 @@ public class TaskController {
         return "redirect:/task-manager/tasks";
     }
 
-    @GetMapping({"/","/login"})
+    @GetMapping({"/", "/login"})
     public String login(Model model, String error, String logout) {
+
         if (error != null) {
             model.addAttribute("error", "Username or password are incorrect.");
         }
-
         if (logout != null) {
-            model.addAttribute("message", "Logged out successfully.");
+            model.addAttribute("message", "Logged out successfully!");
         }
 
         return "login";
     }
 
     @GetMapping("/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/task-manager/login?logout";

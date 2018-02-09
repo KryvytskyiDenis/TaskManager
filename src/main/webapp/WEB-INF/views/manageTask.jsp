@@ -30,21 +30,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <a class="navbar-brand" href="${contextPath}/task-manager/tasks">Task manager</a>
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="${contextPath}/task-manager/tasks" class="nav-link">
                         <spring:message code="allTasks"/> </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a href="${contextPath}/task-manager/new-task" class="nav-link">
                         <spring:message code="newTask"/></a>
                 </li>
+
+
             </ul>
+
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="?lang=en" class="nav-link">En</a>
+                    <a href="?lang=en&id=${task.id}" class="nav-link">En</a>
                 </li>
                 <li class="nav-item">
-                    <a href="?lang=ru" class="nav-link">Ру</a>
+                    <a href="?lang=ru&id=${task.id}" class="nav-link">Ру</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link"> ${username}</a>
@@ -61,40 +64,40 @@
 <main>
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading"><spring:message code="myTasks"/></h1>
+            <h1 class="jumbotron-heading"><spring:message code="manageTask"/></h1>
         </div>
     </section>
     <div class="album py-5 bg-light">
         <div class="container">
-            <div class="row">
-
-                <c:forEach items="${tasks}" var="task">
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-body">
-                                <h4 class="card-title">${task.name}</h4>
-                                <p class="card-text">${task.description}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="${contextPath}/task-manager/edit-task?id=${task.id}"
-                                           type="button" class="btn btn-sm btn-outline-secondary">
-                                            <spring:message code="taskEdit"/>
-                                        </a>
-                                        <a href="${contextPath}/task-manager/delete-task?id=${task.id}"
-                                           type="button" class="btn btn-sm btn-outline-secondary">
-                                            <spring:message code="taskDelete"/>
-                                        </a>
-                                    </div>
-                                    <small class="text-muted">${task.dateCreated.toString()}</small>
-                                </div>
-                            </div>
-                        </div>
+            <form action="${contextPath}/task-manager/save-task" method="post">
+                <input type="hidden" name="id" value="${task.id}"/>
+                <div class="form-group row">
+                    <label for="task-name-input" class="col-sm-2 col-form-label"><spring:message
+                            code="nameTask"/></label>
+                    <div class="col-sm-10">
+                        <input name="name" class="form-control" type="text" value="${task.name}" id="task-name-input">
                     </div>
-                </c:forEach>
-            </div>
+                </div>
+                <div class="form-group row">
+                    <label for="task-description-input" class="col-sm-2 col-form-label"><spring:message
+                            code="descriptionTask"/></label>
+                    <div class="col-sm-10">
+                <textarea name="description" id="task-description-input"
+                          class="form-control">${task.description}</textarea>
+                    </div>
+                </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <input type="submit" value="Submit" class="btn btn-sm btn-secondary"/>
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
 </main>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
