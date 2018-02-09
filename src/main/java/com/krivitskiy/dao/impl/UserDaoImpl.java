@@ -1,7 +1,6 @@
 package com.krivitskiy.dao.impl;
 
 import com.krivitskiy.dao.interfaces.UserDao;
-import com.krivitskiy.model.Role;
 import com.krivitskiy.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
