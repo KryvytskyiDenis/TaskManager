@@ -27,18 +27,20 @@
                     <label for="inputUsername" class="sr-only">Username</label>
                     <input name="username" id="inputUsername" type="text" class="form-control" placeholder="<spring:message code="usernamePlaceholder"/>"
                            required autofocus/>
+
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input name="password" id="inputPassword" type="password" class="form-control" placeholder="<spring:message code="passwordPlaceholder"/>" required/>
                     <span class="error">${error}</span>
+
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <div class="checkbox mb-3">
                         <label>
-                            <input type="checkbox" value="remember-me"> Remember me
+                            <input name="remember-me" type="checkbox"> Remember me
                         </label>
                     </div>
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="signIn"/></button>
-                    <h5 class="text-center"><a href="${contextPath}/task-manager/registration"><spring:message code="signUp"/></a></h5>
+                    <h4 class="text-center"><a href="${contextPath}/task-manager/registration"><spring:message code="signUp"/></a></h4>
                 </div>
             </form>
 

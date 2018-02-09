@@ -20,12 +20,11 @@
 </head>
 <body class="text-center">
 <form:form method="POST" modelAttribute="userForm" class="form-signin">
-    <h2 class="form-signin-heading">Create your account</h2>
+<h1 class="h3 mb-3 font-weight-normal"><spring:message code="signUp.Title"/></h1>
     <spring:bind path="username">
-
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <label for="inputUsername" class="sr-only">Username</label>
-            <form:input type="text" path="username" id="inputUsername" class="form-control" placeholder="Username"
+            <label for="inputUsername" class="sr-only"><spring:message code="usernamePlaceholder"/></label>
+            <input type="text" name="username" id="inputUsername" class="form-control" placeholder="<spring:message code="usernamePlaceholder"/>"
                         autofocus="true"/>
             <form:errors path="username" class="error"/>
         </div>
@@ -33,17 +32,17 @@
 
     <spring:bind path="password">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <form:input type="password" path="password" id="inputPassword" class="form-control" placeholder="Password"/>
+            <label for="inputPassword" class="sr-only"><spring:message code="passwordPlaceholder"/></label>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="<spring:message code="passwordPlaceholder"/>"/>
             <form:errors path="password" class="error"/>
         </div>
     </spring:bind>
 
     <spring:bind path="confirmPassword">
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <label for="inputConfirmPassword" class="sr-only">Confirm password</label>
-            <form:input type="password" path="confirmPassword" id="inputConfirmPassword" class="form-control"
-                        placeholder="Confirm your password"/>
+            <label for="inputConfirmPassword" class="sr-only"><spring:message code="signUp.ConfPas"/></label>
+            <input type="password" name="confirmPassword" id="inputConfirmPassword" class="form-control"
+                        placeholder="<spring:message code="signUp.ConfPas"/>"/>
             <form:errors path="confirmPassword" class="error"/>
         </div>
     </spring:bind>

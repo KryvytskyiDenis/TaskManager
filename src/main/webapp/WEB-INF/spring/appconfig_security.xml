@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
+
         <intercept-url pattern="/task-manager/save-task" access="isAuthenticated()"/>
         <intercept-url pattern="/task-manager/tasks" access="isAuthenticated()"/>
         <intercept-url pattern="/task-manager/new-task" access="isAuthenticated()"/>
@@ -18,11 +19,12 @@
         <form-login login-page='/task-manager/login' default-target-url="/task-manager/tasks" authentication-failure-url="/task-manager/login?error"
                     username-parameter="username" password-parameter="password"/>
 
-        <!--<logout logout-success-url="/task-manager/login?logout"/>-->
+        <remember-me user-service-ref="userDetailsServiceImpl" key="uniqueAndSecret"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsServiceImpl">
         </authentication-provider>
     </authentication-manager>
+
 </beans:beans>

@@ -1,6 +1,9 @@
 package com.krivitskiy.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -13,9 +16,11 @@ public class Task {
     private int id;
 
     @Column(name = "task_name")
+    @Size(min=1, max=100, message = "Size.taskForm.name")
     private String name;
 
     @Column(name = "description")
+    @Size(min=1, message = "Size.taskForm.description")
     private String description;
 
     @Temporal(TemporalType.DATE)

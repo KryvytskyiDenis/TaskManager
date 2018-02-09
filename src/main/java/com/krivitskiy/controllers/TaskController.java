@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Date;
 
 @Controller
@@ -61,13 +62,25 @@ public class TaskController {
     }
 
     @PostMapping("/save-task")
-    public String saveTask(@ModelAttribute Task task, BindingResult bindingResult) {
+    public String saveTask(@Valid @ModelAttribute("taskForm") Task task, BindingResult bindingResult, HttpServletRequest request) {
+        if(bindingResult.hasErrors()){
+            String username = securityService.findLoggedInUsername();
+            request.setAttribute("username", username);
+            request.setAttribute("task", task);
+            return "manageTask";
+        }
+
         String username = securityService.findLoggedInUsername();
         User user = userService.findByName(username);
         task.setUser(user);
         task.setDateCreated(new Date());
         taskService.add(task);
         return "redirect:/task-manager/tasks";
+    }
+
+    @GetMapping("/save-task")
+    public String saveTaskLangSwap(HttpServletRequest request){
+        return "manageTask";
     }
 
     @GetMapping("/edit-task")
@@ -83,7 +96,6 @@ public class TaskController {
         taskService.delete(id);
         return "redirect:/task-manager/tasks";
     }
-
 
     @GetMapping("/registration")
     public String registration(Model model) {

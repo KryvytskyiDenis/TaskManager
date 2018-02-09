@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <html>
@@ -69,22 +70,26 @@
     </section>
     <div class="album py-5 bg-light">
         <div class="container">
-            <form action="${contextPath}/task-manager/save-task" method="post">
+            <form:form modelAttribute="taskForm" action="${contextPath}/task-manager/save-task" method="post">
                 <input type="hidden" name="id" value="${task.id}"/>
-                <div class="form-group row">
-                    <label for="task-name-input" class="col-sm-2 col-form-label"><spring:message
-                            code="nameTask"/></label>
-                    <div class="col-sm-10">
-                        <input name="name" class="form-control" type="text" value="${task.name}" id="task-name-input">
+
+                    <div class="form-group row">
+                        <label for="task-name-input" class="col-sm-2 col-form-label"><spring:message
+                                code="nameTask"/></label>
+                        <div class="col-sm-10">
+                            <input name="name" class="form-control" type="text" value="${task.name}" id="task-name-input">
+                        </div>
+                        <form:errors path="name" class="error"/>
                     </div>
-                </div>
+
                 <div class="form-group row">
                     <label for="task-description-input" class="col-sm-2 col-form-label"><spring:message
                             code="descriptionTask"/></label>
                     <div class="col-sm-10">
-                <textarea name="description" id="task-description-input"
+                        <textarea name="description" id="task-description-input"
                           class="form-control">${task.description}</textarea>
                     </div>
+                    <form:errors path="description" class="error"/>
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-row text-center">
@@ -93,7 +98,7 @@
                     </div>
                 </div>
 
-            </form>
+            </form:form>
         </div>
     </div>
 </main>
